@@ -13,15 +13,25 @@
 	background: var(--tg-theme-bg-color);
 }
     </style>
-	<title>v0.0.2</title>
+	<title>v0.0.4</title>
 </head>
 <body>
     <p>Здравствуйте, <span id="firstName">%%%</span></p>
+    <p>ID: <span id="uid">%%%</span></p>
     <p>Ваш баланс: <span id="bal">%%%</span></p>
-    <button id="click" onclick="bal++;">click me</button>
+    <button id="click" onclick="addbal(1);">click me</button>
 
 	<script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
+function addbal(abal) {
+    fetch(`http://178.253.40.67:8012/${tg.initDataUnsafe.user.id}/${abal}/`).then(function(response) {
+      document.getElementById('bal').innerText = response.text;
+    }).catch(function(err) {
+      console.log('Fetch Error :-S', err);
+    });
+}
+addbal(0);
+
 let tg = window.Telegram.WebApp;
 tg.expand();
 tg.MainButton.setText("Выйти");
@@ -36,6 +46,7 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
 });
 
 document.getElementById('firstName').innerText = tg.initDataUnsafe.user.first_name;
+document.getElementById('uid').innerText = tg.initDataUnsafe.user.id;
 // tg.initDataUnsafe.user.id
 
 </script>
