@@ -13,7 +13,7 @@
 	background: var(--tg-theme-bg-color);
 }
     </style>
-	<title>v0.0.1</title>
+	<title>v0.0.2</title>
 </head>
 <body>
     <p>Здравствуйте, <span id="firstName">%%%</span></p>
@@ -32,7 +32,7 @@ tg.MainButton.show();
 let bal = 0;
 
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
-	tg.sendData(bal);
+	tg.sendData(`${bal}`);
 });
 
 document.getElementById('firstName').innerText = tg.initDataUnsafe.user.first_name;
