@@ -15,15 +15,24 @@
 
         <button class="btn-success btn my-4" style="font-size: 100px; border-radius: 100px; width: 200px; height: 200px;">+</button>
 
+        <p id="name">1</p>
         <p id="uid">1</p>
+        <p id="ui">1</p>
+        <p id="u">1</p>
     </div>
 
     <script>
-        let tg = window.Telegram.WebApp;
-        tg.expand();
-        document.getElementById('uid').innerHTML = `${tg.initDataUnsafe.user.id}`;
+        let tg = window.Telegram.WebApp; //получаем объект webapp телеграма 
+
+        tg.expand(); //расширяем на все окно  
+        document.getElementById('name').innerText = `${tg.initDataUnsafe.user.first_name}`;
+        document.getElementById('uid').innerText = `${tg.initDataUnsafe.user.user_id}`;
+        document.getElementById('ui').innerText = `${tg.initDataUnsafe.user.id}`;
+        document.getElementById('u').innerText = `${tg.initDataUnsafe.user}`;
     </script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </body>
 </html>
