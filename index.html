@@ -12,16 +12,34 @@
 	color: var(--tg-theme-text-color);
 	background: var(--tg-theme-bg-color);
 }
+.btn {
+    border: 0;
+    border-radius: 8px;
+    background: #06760b;
+    color: #fff;
+    padding: 1em 1.5em;
+}
+.btn-disabled {
+    background: #09530d;
+    color: #939393;
+}
     </style>
 	<title>v0.0.5</title>
 </head>
 <body>
 	<script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <p>Здравствуйте, <span id="firstName">%%%</span></p>
-    <p>ID: <span id="uid">%%%</span></p>
-    <p>Ваш баланс: <span id="bal">%%%</span></p>
-    <button id="click" onclick="addbal(1);">click me</button>
+    <div style="text-align: center;">
+        <p>Здравствуйте, <span id="firstName">%%%</span></p>
+        <p>ID: <span id="uid">%%%</span></p>
+        <p style="font-size: larger; font-weight: 700;">Ваш баланс: <span id="bal">0</span></p>
+        <button id="click" onclick="addbal();" style="background-color: #ffffff00; border: 0;">
+            <img src="m1.jpg" alt="m1" style="max-width: 50%;" id="btn-img">
+        </button>
+        <p>За клик вы зарабатываете: <b id="for-click-count">1</b></p>
 
+        <button id="add-for-click" class="btn btn-disabled" onclick="addClick();">купить чурку</button>
+        <p style="margin-top: 6px;">Покупка стоит: <i id="add-price">10</i>, за клик: <i id="add-new">2</i></p>
+    </div>
     <script>
 let tg = window.Telegram.WebApp;
 tg.expand();
@@ -31,6 +49,10 @@ tg.MainButton.color = '#2cab37';
 tg.MainButton.show();
 
 let bal = 0;
+let last = 0;
+let forClickCount = 1;
+let addPrice = 10;
+let addNew = 2;
 
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
 	tg.sendData(`${bal}`);
@@ -38,17 +60,38 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
 
 document.getElementById('firstName').innerText = tg.initDataUnsafe.user.first_name;
 document.getElementById('uid').innerText = tg.initDataUnsafe.user.id;
-// tg.initDataUnsafe.user.id
 
-function addbal(abal) {
-    fetch(`http://178.253.40.67:8012/${tg.initDataUnsafe.user.id}/${abal}/`).then(function(response) {
-      document.getElementById('bal').innerText = response.text;
-    }).catch(function(err) {
-      console.log('Fetch Error :-S', err);
-    });
+function addbal() {
+    bal += forClickCount;
+    document.getElementById('bal').innerText = bal;
+
+    last = (last + 1) % 2;
+    document.getElementById('btn-img').setAttribute('src', `m${last + 1}.jpg`);
+
+    if (bal >= addPrice) {
+        document.getElementById('add-for-click').classList.remove('btn-disabled');
+    } else {
+        document.getElementById('add-for-click').classList.add('btn-disabled');
+    }
 }
 addbal(0);
 
+function addClick() {
+    if (bal >= addPrice) {
+        bal -= addPrice;
+        forClickCount = addNew;
+        addPrice *= 3;
+        addNew *= 2;
+        if (bal >= addPrice) {
+            document.getElementById('add-for-click').classList.remove('btn-disabled');
+        } else {
+            document.getElementById('add-for-click').classList.add('btn-disabled');
+        }
+        document.getElementById('for-click-count').innerText = forClickCount;
+        document.getElementById('add-price').innerText = addPrice;
+        document.getElementById('add-new').innerText = addNew;
+    }
+}
 </script>
 </body>
 </html>
