@@ -39,20 +39,38 @@
 
         <button id="add-for-click" class="btn btn-disabled" onclick="addClick();">купить чурку</button>
         <p style="margin-top: 6px;">Покупка стоит: <i id="add-price">10</i>, за клик: <i id="add-new">2</i></p>
+        <p>Чурок куплено: <b id="churka-count">0</b></p>
     </div>
     <script>
-let tg = window.Telegram.WebApp;
-tg.expand();
-tg.MainButton.setText("Выйти");
-tg.MainButton.textColor = '#FFFFFF';
-tg.MainButton.color = '#2cab37';
-tg.MainButton.show();
+let bal_ls = localStorage.getItem('bal');
+let last_ls = localStorage.getItem('last');
+let forClickCount_ls = localStorage.getItem('forClickCount');
+let addPrice_ls = localStorage.getItem('addPrice');
+let addNew_ls = localStorage.getItem('addNew');
+let churkaCount_ls = localStorage.getItem('churkaCount');
 
 let bal = 0;
 let last = 0;
 let forClickCount = 1;
 let addPrice = 10;
 let addNew = 2;
+let churkaCount = 0;
+
+if (bal_ls) bal = parseInt(bal_ls);
+if (last_ls) last = parseInt(last_ls);
+if (forClickCount_ls) forClickCount = parseInt(forClickCount_ls);
+if (addPrice_ls) addPrice = parseInt(addPrice_ls);
+if (addNew_ls) addNew = parseInt(addNew_ls);
+if (churkaCount_ls) churkaCount = parseInt(churkaCount_ls);
+
+updateData();
+
+let tg = window.Telegram.WebApp;
+tg.expand();
+tg.MainButton.setText("Выйти");
+tg.MainButton.textColor = '#FFFFFF';
+tg.MainButton.color = '#2cab37';
+tg.MainButton.show();
 
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
 	tg.sendData(`${bal}`);
@@ -73,6 +91,9 @@ function addbal() {
     } else {
         document.getElementById('add-for-click').classList.add('btn-disabled');
     }
+
+    localStorage.setItem('bal', bal);
+    localStorage.setItem('last', last);
 }
 addbal(0);
 
@@ -82,15 +103,30 @@ function addClick() {
         forClickCount = addNew;
         addPrice *= 3;
         addNew *= 2;
+        churkaCount += 1;
         if (bal >= addPrice) {
             document.getElementById('add-for-click').classList.remove('btn-disabled');
         } else {
             document.getElementById('add-for-click').classList.add('btn-disabled');
         }
+        document.getElementById('churka-count').innerText = churkaCount;
         document.getElementById('for-click-count').innerText = forClickCount;
         document.getElementById('add-price').innerText = addPrice;
         document.getElementById('add-new').innerText = addNew;
+        localStorage.setItem('bal', bal);
+        localStorage.setItem('addPrice', addPrice);
+        localStorage.setItem('forClickCount', forClickCount);
+        localStorage.setItem('churkaCount', churkaCount);
+        localStorage.setItem('addNew', addNew);
     }
+}
+
+function updateData() {
+    document.getElementById('for-click-count').innerText = forClickCount;
+    document.getElementById('add-price').innerText = addPrice;
+    document.getElementById('add-new').innerText = addNew;
+    document.getElementById('bal').innerText = bal;
+    document.getElementById('churka-count').innerText = churkaCount;
 }
 </script>
 </body>
