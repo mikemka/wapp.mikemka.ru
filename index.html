@@ -1,133 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style>
-        body {
-	margin: 0;
-	padding: 0;
-	font-size: 18px;
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	color: var(--tg-theme-text-color);
-	background: var(--tg-theme-bg-color);
-}
-.btn {
-    border: 0;
-    border-radius: 8px;
-    background: #06760b;
-    color: #fff;
-    padding: 1em 1.5em;
-}
-.btn-disabled {
-    background: #09530d;
-    color: #939393;
-}
-    </style>
-	<title>v0.0.5</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iChick</title>
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-	<script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <div style="text-align: center;">
-        <p>Здравствуйте, <span id="firstName">%%%</span></p>
-        <p>ID: <span id="uid">%%%</span></p>
-        <p style="font-size: larger; font-weight: 700;">Ваш баланс: <span id="bal">0</span></p>
-        <button id="click" onclick="addbal();" style="background-color: #ffffff00; border: 0;">
-            <img src="m1.jpg" alt="m1" style="max-width: 50%;" id="btn-img">
-        </button>
-        <p>За клик вы зарабатываете: <b id="for-click-count">1</b></p>
-
-        <button id="add-for-click" class="btn btn-disabled" onclick="addClick();">купить чурку</button>
-        <p style="margin-top: 6px;">Покупка стоит: <i id="add-price">10</i>, за клик: <i id="add-new">2</i></p>
-        <p>Чурок куплено: <b id="churka-count">0</b></p>
+    <div class="container flex-col">
+        <section id="clicker">
+        </section>
+        <section id="chat">
+            <section id="messages">
+                <div class="message out">
+                    <div>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam sequi sit enim quisquam aperiam praesentium fugit sunt doloribus aliquid voluptate. Dolorum eum, porro magni aspernatur consequatur nam omnis! Sed, nobis?
+                    </div>
+                </div>
+                <div class="message in">
+                    <div>
+                        Ответ
+                    </div>
+                </div>
+                <div class="message out">
+                    <div>
+                        Тест сообщение
+                    </div>
+                </div>
+            </section>
+            <section id="send">
+                <input type="text" id="in" placeholder="Your message...">
+                <button onclick="sendMessage()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                        <path d="M20 4L13.7618 19L11.5471 12.4794L5 10.2382L20 4Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </section>
+        </section>
     </div>
-    <script>
-let bal_ls = localStorage.getItem('bal');
-let last_ls = localStorage.getItem('last');
-let forClickCount_ls = localStorage.getItem('forClickCount');
-let addPrice_ls = localStorage.getItem('addPrice');
-let addNew_ls = localStorage.getItem('addNew');
-let churkaCount_ls = localStorage.getItem('churkaCount');
 
-let bal = 0;
-let last = 0;
-let forClickCount = 1;
-let addPrice = 10;
-let addNew = 2;
-let churkaCount = 0;
-
-if (bal_ls) bal = parseInt(bal_ls);
-if (last_ls) last = parseInt(last_ls);
-if (forClickCount_ls) forClickCount = parseInt(forClickCount_ls);
-if (addPrice_ls) addPrice = parseInt(addPrice_ls);
-if (addNew_ls) addNew = parseInt(addNew_ls);
-if (churkaCount_ls) churkaCount = parseInt(churkaCount_ls);
-
-updateData();
-
-let tg = window.Telegram.WebApp;
-tg.expand();
-tg.MainButton.setText("Выйти");
-tg.MainButton.textColor = '#FFFFFF';
-tg.MainButton.color = '#2cab37';
-tg.MainButton.show();
-
-Telegram.WebApp.onEvent("mainButtonClicked", function(){
-	tg.sendData(`${bal}`);
-});
-
-document.getElementById('firstName').innerText = tg.initDataUnsafe.user.first_name;
-document.getElementById('uid').innerText = tg.initDataUnsafe.user.id;
-
-function addbal() {
-    bal += forClickCount;
-    document.getElementById('bal').innerText = bal;
-
-    last = (last + 1) % 2;
-    document.getElementById('btn-img').setAttribute('src', `m${last + 1}.jpg`);
-
-    if (bal >= addPrice) {
-        document.getElementById('add-for-click').classList.remove('btn-disabled');
-    } else {
-        document.getElementById('add-for-click').classList.add('btn-disabled');
-    }
-
-    localStorage.setItem('bal', bal);
-    localStorage.setItem('last', last);
-}
-addbal(0);
-
-function addClick() {
-    if (bal >= addPrice) {
-        bal -= addPrice;
-        forClickCount = addNew;
-        addPrice *= 3;
-        addNew *= 2;
-        churkaCount += 1;
-        if (bal >= addPrice) {
-            document.getElementById('add-for-click').classList.remove('btn-disabled');
-        } else {
-            document.getElementById('add-for-click').classList.add('btn-disabled');
-        }
-        document.getElementById('churka-count').innerText = churkaCount;
-        document.getElementById('for-click-count').innerText = forClickCount;
-        document.getElementById('add-price').innerText = addPrice;
-        document.getElementById('add-new').innerText = addNew;
-        localStorage.setItem('bal', bal);
-        localStorage.setItem('addPrice', addPrice);
-        localStorage.setItem('forClickCount', forClickCount);
-        localStorage.setItem('churkaCount', churkaCount);
-        localStorage.setItem('addNew', addNew);
-    }
-}
-
-function updateData() {
-    document.getElementById('for-click-count').innerText = forClickCount;
-    document.getElementById('add-price').innerText = addPrice;
-    document.getElementById('add-new').innerText = addNew;
-    document.getElementById('bal').innerText = bal;
-    document.getElementById('churka-count').innerText = churkaCount;
-}
-</script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>

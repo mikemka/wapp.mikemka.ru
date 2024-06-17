@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --accent: #BA181B;
+    --dark: #343A40;
+    --black: #0B090A;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--black);
+    color: #fff;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    min-height: calc(100vh);
+    max-width: 430px;
+    -webkit-box-shadow: 0px 0px 500px 0px rgba(255, 255, 255, 0.07);
+    -moz-box-shadow: 0px 0px 500px 0px rgba(255, 255, 255, 0.07);
+    box-shadow: 0px 0px 500px 0px rgba(255, 255, 255, 0.07);
+}
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#clicker {
+    flex-grow: 1;
+}
+#chat {
+    padding: 10px;
+    background: var(--dark);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    height: calc(180 / (320 + 180) * 100vh);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+#messages {
+    flex-grow: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.message {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    margin-bottom: 8px;
+}
+.message.out {
+    justify-content: end;
+}
+.message > * {
+    border-radius: 8px;
+    padding: .4em .6em;
+    background: var(--black);
+    min-width: 50%;
+    max-width: 70%;
+}
+
+
+#send {
+    padding-top: .5em;
+    display: flex;
+    justify-content: space-between;
+}
+#send > * {
+    background: var(--black);
+    border: 0;
+    color: #fff;
+    font-size: 1.1em;
+}
+#send > input {
+    flex-grow: 1;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    padding: .5em .8em;
+}
+#send > input::placeholder {
+    color: var(--dark);
+    opacity: 1;
+}
+#send > input::-ms-input-placeholder {
+    color: var(--dark);
+}
+#send > button {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 .3em;
+}
+#send > button path {
+    stroke: var(--accent);
+}
+#send > button svg {
+    width: 1.7em;
+    height: 1.7em;
+}
