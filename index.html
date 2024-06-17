@@ -7,29 +7,17 @@
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
     <div class="container flex-col">
         <section id="clicker">
         </section>
         <section id="chat">
             <section id="messages">
-                <div class="message out">
-                    <div>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam sequi sit enim quisquam aperiam praesentium fugit sunt doloribus aliquid voluptate. Dolorum eum, porro magni aspernatur consequatur nam omnis! Sed, nobis?
-                    </div>
-                </div>
-                <div class="message in">
-                    <div>
-                        Ответ
-                    </div>
-                </div>
-                <div class="message out">
-                    <div>
-                        Тест сообщение
-                    </div>
-                </div>
+                
             </section>
             <section id="send">
-                <input type="text" id="in" placeholder="Your message...">
+                <input type="text" id="message-input" placeholder="Your message...">
                 <button onclick="sendMessage()">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
                         <path d="M20 4L13.7618 19L11.5471 12.4794L5 10.2382L20 4Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

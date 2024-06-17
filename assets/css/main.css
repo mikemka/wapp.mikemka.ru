@@ -65,7 +65,9 @@ body {
     padding: .4em .6em;
     background: var(--black);
     min-width: 50%;
-    max-width: 70%;
+    max-width: 80%;
+    word-break: break-word;
+    word-wrap: break-word;
 }
 
 
