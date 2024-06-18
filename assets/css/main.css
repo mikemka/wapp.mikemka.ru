@@ -42,7 +42,6 @@ body {
     align-items: center;
 }
 #clicker-zone {
-    background-color: #ba181b14;
     flex-grow: 1;
     width: 100%;
 }
@@ -83,11 +82,30 @@ body {
 }
 
 #clicker #bar-container {
-    padding: .3em;
+    padding: .4em;
+    width: calc(100% - .8em);
 }
 #clicker #bar {
-    padding: .2em .5em;
-    background-color: var(--accent);
+    width: 100%;
+    background-color: var(--black);
+    -webkit-box-shadow: var(--main-shadow);
+    -moz-box-shadow: var(--main-shadow);
+    box-shadow: var(--main-shadow);
+    border-radius: 1em;
+    height: 1.75em;
+    position: relative;
+}
+#clicker #bar #bar-filled {
+    background: var(--accent);
+    border-radius: 1em;
+    height: 1.75em;
+}
+#clicker #bar span {
+    font-size: .95em;
+    line-height: 1.75em;
+    position:absolute;
+    top: .2px;
+    right: 8px;
 }
 
 #chat {

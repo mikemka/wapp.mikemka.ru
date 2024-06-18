@@ -39,7 +39,25 @@ function loadOldMessages() {
     }
 }
 
-window.onload = loadOldMessages;
+var clicked = 0;
+
+function processClick() {
+    clicked += 1;
+    setProgressValue(clicked);
+}
+
+function setProgressValue(value) {
+    value = Math.max(Math.min(value, 100), 0);
+    document.getElementById("bar-value").innerText = `${value}/100`;
+    document.getElementById("bar-filled").setAttribute('style', `width:${value}%`);
+}
+
+function pageOnload() {
+    loadOldMessages();
+    setProgressValue(0);
+}
+
+window.onload = pageOnload;
 
 let tg = window.Telegram.WebApp;
 tg.expand();
