@@ -39,7 +39,7 @@ function loadOldMessages() {
     }
 }
 
-var clicked = 0;
+var clicked = 20;
 
 function processClick() {
     clicked += 1;
@@ -48,13 +48,34 @@ function processClick() {
 
 function setProgressValue(value) {
     value = Math.max(Math.min(value, 100), 0);
-    document.getElementById("bar-value").innerText = `${value}/100`;
-    document.getElementById("bar-filled").setAttribute('style', `width:${value}%`);
+    document.getElementById("bar-value-start").innerText = `${value}/100`;
+    document.getElementById("bar-value-end").innerText = `${100 - value}/100`;
+    document.getElementById("bar-filled-start").setAttribute(
+        'style',
+        `width: calc(${value}/100 * calc(100% - 1.7em));`
+    );
+    document.getElementById("bar-filled-end").setAttribute(
+        'style',
+        `width: calc(${100 - value}/100 * calc(100% - 1.7em));`
+    );
+}
+
+var menu = false;
+
+function showMenu() {
+    if (menu) {
+        document.getElementById('message-input').classList.remove('d-none');
+        document.getElementById('menu-container').classList.add('d-none');
+    } else {
+        document.getElementById('message-input').classList.add('d-none');
+        document.getElementById('menu-container').classList.remove('d-none');
+    }
+    menu = !menu;
 }
 
 function pageOnload() {
     loadOldMessages();
-    setProgressValue(0);
+    setProgressValue(20);
 }
 
 window.onload = pageOnload;

@@ -2,6 +2,7 @@
 
 :root {
     --accent: #BA181B;
+    --accent-2: #FFC000;
     --dark: #343A40;
     --black: #0B090A;
     --main-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
@@ -30,6 +31,9 @@ body {
     flex-direction: column;
     justify-content: space-between;
 }
+.d-none {
+    display: none !important;
+}
 #clicker {
     flex-grow: 1;
     background-image: url("/assets/images/mia.png");
@@ -48,34 +52,22 @@ body {
 #clicker nav {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     padding: .5em;
     width: calc(100% - 1em);
 }
-#clicker nav > * {
-    width: 100%;
+.nav-col {
+    width: calc(50% - 1em);
 }
-#clicker nav > *:nth-child(1) {
-    text-align: left;
-}
-#clicker nav > *:nth-child(2) {
-    text-align: center;
-}
-#clicker nav > *:nth-child(3) {
-    text-align: right;
-}
-#clicker nav h1 {
-    margin: 0;
-    font-size: 1.5em;
-    font-weight: 500;
-}
-#clicker nav p {
-    margin: 0;
-    font-size: 1em;
-    font-weight: 400;
-}
-#clicker nav path {
-    stroke: var(--accent);
+.nav-el {
+    background: var(--dark);
+    margin-bottom: .5em;
+    border-radius: 1em;
+    padding: .3em .5em;
+    line-height: 1.7em;
+    display: flex;
+    justify-content: space-between;
+    font-size: .88em;
+    align-items: center;
 }
 #clicker nav svg {
     width: 1.7em;
@@ -95,12 +87,27 @@ body {
     height: 1.75em;
     position: relative;
 }
-#clicker #bar #bar-filled {
+#clicker #bar #bar-filled-start {
     background: var(--accent);
     border-radius: 1em;
     height: 1.75em;
 }
-#clicker #bar span {
+#clicker #bar #bar-filled-end {
+    background: var(--accent-2);
+    border-radius: 1em;
+    height: 1.75em;
+    position:absolute;
+    top:0;
+    right: 0;
+}
+#clicker #bar #bar-value-start {
+    font-size: .95em;
+    line-height: 1.75em;
+    position:absolute;
+    top: .2px;
+    left: 8px;
+}
+#clicker #bar #bar-value-end {
     font-size: .95em;
     line-height: 1.75em;
     position:absolute;
@@ -160,36 +167,71 @@ body {
     border: 0;
     color: #fff;
     font-size: 1.1em;
-}
-#send > input {
-    flex-grow: 1;
-    border-radius: 8px 0 0 8px;
-    padding: .5em .8em;
     -webkit-box-shadow: var(--main-shadow);
     -moz-box-shadow: var(--main-shadow);
     box-shadow: var(--main-shadow);
 }
-#send > input::placeholder {
+#send input {
+    flex-grow: 1;
+    border-radius: 0;
+    padding: .58em .8em;
+    border-radius: 0;
+}
+#menu-container {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#menu {
+    padding: .3em;
+    width: max(12em, 60%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#send input::placeholder {
     color: var(--dark);
     opacity: 1;
 }
 #send > input::-ms-input-placeholder {
     color: var(--dark);
 }
-#send > button {
+#send > button:first-child {
+    border-radius: 8px 0 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 .3em;
+}
+
+#send > button:last-child {
     border-radius: 0 8px 8px 0;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 .3em;
-    -webkit-box-shadow: var(--main-shadow);
-    -moz-box-shadow: var(--main-shadow);
-    box-shadow: var(--main-shadow);
 }
 #send > button path {
     stroke: var(--accent);
 }
-#send > button svg {
+#send svg {
     width: 1.7em;
     height: 1.7em;
+}
+#menu path {
+    stroke: var(--dark);
+}
+#menu a:first-child path {
+    fill: var(--dark);
+}
+#menu a.active path {
+    stroke: var(--accent);
+}
+#menu a:first-child.active path {
+    fill: var(--accent);
+}
+#menu a {
+    line-height: 0;
+    text-decoration: none;
 }
