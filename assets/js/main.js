@@ -22,6 +22,8 @@ function addMessage(text, sendedFromUser, isNewMessage) {
     }
 }
 
+var msgs = [];
+
 function sendMessage() {
     const input = document.getElementById('message-input');
     const text = input.value;
@@ -30,20 +32,28 @@ function sendMessage() {
     }
     input.value = '';
     addMessage(text, true, true);
+    msgs.push([text, true]);
+    addMessage('HTTP 413 Request Entity Too Large', false, true);
+    msgs.push(['HTTP 413 Request Entity Too Large', false]);
+    localStorage.setItem("msgs", JSON.stringify(msgs));
 }
 
 function loadOldMessages() {
-    const oldMessages = [['тест соо 1', true], ['тест отв 1', false]];
-    for (const message of oldMessages.reverse()) {
+    const msgs_ls = localStorage.getItem("msgs");
+    if (msgs_ls) {
+        msgs = JSON.parse(msgs_ls);
+    }
+    for (const message of msgs.reverse()) {
         addMessage(message[0], message[1], false)
     }
 }
 
-var clicked = 20;
+var clicked = 0;
 
 function processClick() {
     clicked += 1;
     setProgressValue(clicked);
+    localStorage.setItem('clicked', clicked);
 }
 
 function setProgressValue(value) {
@@ -74,11 +84,21 @@ function showMenu() {
 }
 
 function pageOnload() {
+    let clicked_ls = localStorage.getItem('clicked');
+    if (clicked_ls) clicked = parseInt(clicked_ls);
+
     loadOldMessages();
-    setProgressValue(20);
+    setProgressValue(clicked);
 }
 
+
 window.onload = pageOnload;
+// let churkaCount_ls = localStorage.getItem('churkaCount');
+// let churkaCount = 0;
+
+
+// if (churkaCount) last = parseInt(last_ls);
+
 
 let tg = window.Telegram.WebApp;
 tg.expand();
