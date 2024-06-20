@@ -24,14 +24,13 @@ function addMessage(text, sendedFromUser, isNewMessage) {
 
 
 function getReq(prompt) {
-    fetch('http://147.45.233.188:8032/?' + new URLSearchParams({
+    fetch('https://chat.mikemka.ru/?' + new URLSearchParams({
         message: prompt,
     }).toString())
     .then((response) => {
       return response.text();
     })
     .then((myJson) => {
-        // console.log(myJson);
         addMessage(myJson, false, true);
         msgs.push([myJson, false]);
         localStorage.setItem("msgs", JSON.stringify(msgs));
