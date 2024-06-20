@@ -22,6 +22,22 @@ function addMessage(text, sendedFromUser, isNewMessage) {
     }
 }
 
+
+function getReq(prompt) {
+    fetch('http://147.45.233.188:8032/?' + new URLSearchParams({
+        message: prompt,
+    }).toString())
+    .then((response) => {
+      return response.text();
+    })
+    .then((myJson) => {
+        // console.log(myJson);
+        addMessage(myJson, false, true);
+        msgs.push([myJson, false]);
+        localStorage.setItem("msgs", JSON.stringify(msgs));
+    });
+}
+
 var msgs = [];
 
 function sendMessage() {
@@ -33,9 +49,8 @@ function sendMessage() {
     input.value = '';
     addMessage(text, true, true);
     msgs.push([text, true]);
-    addMessage('HTTP 413 Request Entity Too Large', false, true);
-    msgs.push(['HTTP 413 Request Entity Too Large', false]);
     localStorage.setItem("msgs", JSON.stringify(msgs));
+    getReq(text);
 }
 
 function loadOldMessages() {
