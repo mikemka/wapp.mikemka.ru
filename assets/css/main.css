@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-    --accent: #BA181B;
+    --accent: #F50057;
     --accent-2: #FFC000;
-    --dark: #343A40;
+    --accent-3: #FF4081;
+    --dark: #393637;
     --black: #0B090A;
     --main-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
 }
@@ -25,6 +26,7 @@ body {
     -webkit-box-shadow: 0px 0px 500px 0px rgba(255, 255, 255, 0.07);
     -moz-box-shadow: 0px 0px 500px 0px rgba(255, 255, 255, 0.07);
     box-shadow: 0px 0px 500px 0px rgba(255, 255, 255, 0.07);
+    position: relative;
 }
 .flex-col {
     display: flex;
@@ -177,11 +179,24 @@ body {
     padding: .58em .8em;
     border-radius: 0;
 }
+#menu-container-float {
+    position:sticky;
+    bottom: 10px;
+    border-radius: 8px;
+    padding: .21em 2.3em;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--black);
+}
 #menu-container {
     flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 0 8px 8px 0;
+    padding-right: 2.3em;
 }
 #menu {
     padding: .3em;
@@ -215,23 +230,52 @@ body {
 #send > button path {
     stroke: var(--accent);
 }
-#send svg {
+#send svg, #menu svg {
     width: 1.7em;
     height: 1.7em;
 }
 #menu path {
     stroke: var(--dark);
 }
-#menu a:first-child path {
-    fill: var(--dark);
-}
 #menu a.active path {
     stroke: var(--accent);
-}
-#menu a:first-child.active path {
     fill: var(--accent);
 }
 #menu a {
     line-height: 0;
     text-decoration: none;
+}
+#shop-items {
+    display: flex;
+    flex-flow: row wrap;
+    margin-bottom: 2em;
+    margin-top: .5em;
+}
+.shop-item {
+    display: block;
+    text-decoration: none;
+    margin: .5em;
+    padding: .5em;
+    background: #fff;
+    width: calc(50% - 2em);
+    border-radius: 8px;
+    color: #000;
+    text-align: center;
+    -webkit-box-shadow: 0px 4px 4px 0px #00000040;
+    -moz-box-shadow: 0px 4px 4px 0px #00000040;
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+.shop-item p {
+    font-weight: 500;
+    margin-top: .8em;
+    margin-bottom: .5em;
+}
+.shop-item .img {
+    width: 100%;
+    aspect-ratio: 3/2;
+    background-size: cover;
+    background-position: center;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    border-radius: 5px 5px 0 0;
 }
