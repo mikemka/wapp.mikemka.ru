@@ -51,7 +51,9 @@ body {
     flex-grow: 1;
     width: 100%;
 }
-#clicker nav {
+
+
+/* #clicker nav {
     display: flex;
     justify-content: space-between;
     padding: .5em;
@@ -70,9 +72,59 @@ body {
     justify-content: space-between;
     font-size: .88em;
     align-items: center;
-}
+} */
+
 #clicker nav svg {
     width: 1.7em;
+}
+#clicker nav {
+    margin-top: .5em;
+    width: calc(100% - 1em);
+}
+#clicker nav .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#clicker nav .nav-col {
+    background: var(--dark);
+    margin-bottom: .5em;
+    border-radius: 1em;
+    padding: .3em .5em;
+    line-height: 1.7em;
+    display: flex;
+    justify-content: space-between;
+    font-size: .88em;
+    align-items: center;
+    min-width: 40%;
+}
+#clicker nav .nav-col * {
+    margin: 0 .2em;
+}
+#nav-progress-bar {
+    position: relative;
+    width: 100%;
+    background: var(--dark);
+    height: 2.023em;
+    border-radius: 1em;
+    margin-bottom: .3em;
+}
+#nav-progress-value {
+    position: absolute;
+    right: .4em;
+    top: 10px;
+    bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+#nav-progress-value > * {
+    margin: 0 .2em;
+}
+#nav-progress-filled {
+    height: 100%;
+    background-color: var(--accent-3);
+    border-radius: 1em;
+    width: 15%;
 }
 
 #clicker #bar-container {
