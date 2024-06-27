@@ -24,7 +24,7 @@ function addMessage(text, sendedFromUser, isNewMessage) {
 
 
 function getReq(prompt) {
-    fetch('https://chat.mikemka.ru/?' + new URLSearchParams({
+    fetch('https://chat.mikemka.ru/chat/api/v1/?' + new URLSearchParams({
         message: prompt,
     }).toString())
     .then((response) => {
@@ -36,6 +36,7 @@ function getReq(prompt) {
         localStorage.setItem("msgs", JSON.stringify(msgs));
     });
 }
+
 
 var msgs = [];
 
@@ -52,6 +53,7 @@ function sendMessage() {
     getReq(text);
 }
 
+
 function loadOldMessages() {
     const msgs_ls = localStorage.getItem("msgs");
     if (msgs_ls) {
@@ -62,6 +64,7 @@ function loadOldMessages() {
     }
 }
 
+
 var clicked = 0;
 
 function processClick() {
@@ -69,6 +72,7 @@ function processClick() {
     setProgressValue(clicked);
     localStorage.setItem('clicked', clicked);
 }
+
 
 function setProgressValue(value) {
     value = Math.max(Math.min(value, 100), 0);
@@ -83,6 +87,7 @@ function setProgressValue(value) {
         `width: calc(${100 - value}/100 * calc(100% - 1.7em));`
     );
 }
+
 
 var menu = false;
 
@@ -101,22 +106,18 @@ function showMenu() {
     menu = !menu;
 }
 
+
 function pageOnload() {
     let clicked_ls = localStorage.getItem('clicked');
     if (clicked_ls) clicked = parseInt(clicked_ls);
 
     loadOldMessages();
     setProgressValue(clicked);
+    showMenu();
 }
 
 
 window.onload = pageOnload;
-// let churkaCount_ls = localStorage.getItem('churkaCount');
-// let churkaCount = 0;
-
-
-// if (churkaCount) last = parseInt(last_ls);
-
 
 let tg = window.Telegram.WebApp;
 tg.expand();
